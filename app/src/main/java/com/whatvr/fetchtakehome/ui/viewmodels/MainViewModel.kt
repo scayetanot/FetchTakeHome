@@ -91,8 +91,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-
-
     private fun fetchData() {
         viewModelScope.launch {
             val response = fetchRepository.getListOfHiring()
