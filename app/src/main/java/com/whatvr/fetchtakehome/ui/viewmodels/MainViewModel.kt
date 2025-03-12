@@ -47,7 +47,7 @@ class MainViewModel @Inject constructor(
                 isFiltering = !enable
             )
         }
-        filterAndSort(enable, _uiState.value.isSorting)
+        filterAndSort(_uiState.value.isFiltering, _uiState.value.isSorting)
     }
 
     fun sorting(enable: Boolean) {
@@ -56,7 +56,7 @@ class MainViewModel @Inject constructor(
                 isSorting = !enable
             )
         }
-        filterAndSort(_uiState.value.isFiltering, enable)
+        filterAndSort(_uiState.value.isFiltering, _uiState.value.isSorting)
     }
 
     //The goal of filterAndSort is to allow the user to filter and sort
@@ -83,9 +83,15 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    //map is also removing the
     private  fun List<HiringGrouped>.sortIt(enable: Boolean) : List<HiringGrouped> {
         return if(enable) {
-            this.sortedBy { it.listId }
+            this.map {
+                HiringGrouped(
+                    it.listId,
+                    it.items.sortedBy { it.nameId }
+                )
+            }.sortedBy { it.listId }
         } else {
             this
         }
