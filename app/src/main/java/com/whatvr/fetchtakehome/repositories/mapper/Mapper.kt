@@ -8,8 +8,6 @@ object Mapper {
 
     fun List<RetrofitItem>.toHiringGroupedItem(): List<HiringGrouped> {
         return this
-            .filter { it.name.isNullOrEmpty().not() }
-            .sortedBy { it.listId }
             .groupBy { it.listId }
             .map {
                 HiringGrouped(
@@ -32,6 +30,9 @@ object Mapper {
     }
 
     private fun String.toNameId(): Int =
-        this.split(" ").last().toInt()
+        if(this.isEmpty())
+            Int.MAX_VALUE
+        else
+            this.split(" ").last().toInt()
 
 }

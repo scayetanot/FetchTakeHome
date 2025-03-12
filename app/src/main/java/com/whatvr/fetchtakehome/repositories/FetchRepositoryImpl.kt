@@ -8,6 +8,7 @@ import javax.inject.Inject
 class FetchRepositoryImpl @Inject constructor(
     private val api: FetchApi
 ): FetchRepository {
+
     override suspend fun getListOfHiring(): Resource<List<HiringGrouped>> {
         return try {
             val response = api.getListOfHiring()

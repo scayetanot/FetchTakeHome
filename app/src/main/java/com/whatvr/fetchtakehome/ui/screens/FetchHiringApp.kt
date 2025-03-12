@@ -1,12 +1,16 @@
 package com.whatvr.fetchtakehome.ui.screens
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
@@ -61,11 +65,30 @@ fun FetchTakeHomeApp(
                     isRefreshing = uiState.isRefreshing,
                     onRefresh = { viewModel.onPullToRefreshTrigger()},
                 ) {
-                    FetchScreen(
-                        isLoading = uiState.isLoading,
-                        list = uiState.items,
-                        error = uiState.error,
-                    )
+                    Column {
+                        Row {
+                            Button(
+                                onClick = {
+                                    viewModel.filter(uiState.isFiltering)
+                                }
+                            ) {
+                                Text("Filter: ${uiState.isFiltering}")
+                            }
+                            Button(
+                                onClick = {
+                                    viewModel.sorting(uiState.isSorting)
+                                }
+                            ) {
+                                Text("Sorting: ${uiState.isSorting}")
+                            }
+                        }
+                        FetchScreen(
+                            isLoading = uiState.isLoading,
+                            list = uiState.items,
+                            error = uiState.error,
+                        )
+                    }
+
                 }
             }
         }

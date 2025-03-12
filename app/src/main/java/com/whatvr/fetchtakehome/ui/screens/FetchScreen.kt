@@ -48,7 +48,7 @@ fun FetchScreen(
         }
 
         LazyColumn() {
-            list.forEach {
+             list.forEach {
                 item {
                     GroupIdCard(it.listId, it.items)
                 }
