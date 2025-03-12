@@ -33,7 +33,9 @@ class MainViewModel @Inject constructor(
         _uiState.update {
             it.copy(
                 isRefreshing = true,
-                isLoading = true
+                isLoading = true,
+                isSorting = false,
+                isFiltering = false
             )
         }
         viewModelScope.launch {
